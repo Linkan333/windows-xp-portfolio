@@ -1,0 +1,33 @@
+import type { Metadata } from "next";
+import localFont from "next/font/local"
+import "./globals.css";
+
+const alfaSlabOne = localFont({
+  src: [
+    {
+      path: "fonts/Tahoma.ttf",
+      weight: "400",
+      style: "normal",
+    }
+  ]
+})
+export const metadata: Metadata = {
+  title: "linkan.dev",
+  description: "Linkan333 Portfolio",
+};
+
+export default function RootLayout({
+  children,
+}: Readonly<{
+  children: React.ReactNode;
+}>) {
+  return (
+    <html lang="en">
+      <body
+        className={`${alfaSlabOne.className} antialiased`}
+      >
+        {children}
+      </body>
+    </html>
+  );
+}
