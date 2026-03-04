@@ -6,10 +6,23 @@ import MyComputer from "./components/MyComputer";
 import Image from "next/image";
 
 export default function Home() {
-  const [myComputerOpen, setMyComputerOpen] = useState(false);
+  const [myComputerState, setMyComputerState] = useState<
+    "closed" | "open" | "minimized"
+  >("closed");
 
   const toggleMyComputer = () => {
-    setMyComputerOpen((prev) => !prev);
+    setMyComputerState((prev) => {
+      if (prev === "open") return "minimized";
+      return "open";
+    });
+  };
+
+  const minimizeMyComputer = () => {
+    setMyComputerState("minimized");
+  };
+
+  const closeMyComputer = () => {
+    setMyComputerState("closed");
   };
 
   return (
@@ -23,12 +36,16 @@ export default function Home() {
         className="object-cover -z-10"
       />
 
-      {myComputerOpen && (
-        <MyComputer onMinimize={toggleMyComputer} />
+      {myComputerState === "open" && (
+        <MyComputer
+          onMinimize={minimizeMyComputer}
+          onClose={closeMyComputer}
+        />
       )}
 
+
       <Navbar
-        myComputerOpen={myComputerOpen}
+        myComputerState={myComputerState}
         toggleMyComputer={toggleMyComputer}
       />
 

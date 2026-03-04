@@ -5,6 +5,20 @@
   --foreground: #171717;
 }
 
+@layer utilities {
+  .notch-right {
+    --notch: 32px;
+    --notch-x: 100%;
+
+    -webkit-mask: radial-gradient(circle var(--notch) at var(--notch-x) 50%,
+        transparent 0 calc(var(--notch) - 0.5px),
+        #000 calc(var(--notch) + 0.5px));
+    mask: radial-gradient(circle var(--notch) at var(--notch-x) 50%,
+        transparent 0 calc(var(--notch) - 0.5px),
+        #000 calc(var(--notch) + 0.5px));
+  }
+}
+
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);

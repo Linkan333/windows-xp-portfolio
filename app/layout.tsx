@@ -11,6 +11,7 @@ const alfaSlabOne = localFont({
     }
   ]
 })
+
 export const metadata: Metadata = {
   title: "linkan.dev",
   description: "Linkan333 Portfolio",
