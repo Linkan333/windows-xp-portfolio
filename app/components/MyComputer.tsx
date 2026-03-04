@@ -71,6 +71,14 @@ export default function MyComputer({ onMinimize, onClose }: MyComputerProps) {
     };
   }, [dragging]);
 
+  useEffect(() => {
+    document.body.classList.toggle("xp-cursor-dragging", dragging);
+
+    return () => {
+      document.body.classList.remove("xp-cursor-dragging");
+    };
+  }, [dragging]);
+
   return (
     <div
       className="absolute"
@@ -96,7 +104,7 @@ export default function MyComputer({ onMinimize, onClose }: MyComputerProps) {
               bg-[linear-gradient(to_bottom,#0f46b8_0%,#2f6de4_12%,#6ea6ff_22%,#3d7bea_45%,#255fd4_100%)]
               shadow-[inset_0_1px_0_rgba(255,255,255,0.82),inset_0_-1px_0_rgba(9,27,96,0.62)]
               flex items-center pl-[7px] pr-[6px]
-              cursor-move
+              xp-draggable
             "
           >
             <Image

@@ -51,8 +51,35 @@ export default function StartMenu() {
               Linkan333
             </h1>
 
-          </div>
+            <div className="
+            mt-[100px]
+            ml-60
+            h-[520px]
+            w-1/2
+            bg-[#d3e5fa]
+            border-l-[2px]
+            border-[#c1daf7]
+            flex flex-col">
+              <button
+              className="ml-2 text-[#48578f] mb-2 text-left cursor-pointer">
+                My Projects
+              </button>
+              <button
+              className="ml-2 text-[#48578f] mb-2 text-left cursor-pointer">
+                My Journey
+              </button>
+              <button
+              className="ml-2 text-[#48578f] mb-2 text-left cursor-pointer">
+                My Socials
+              </button>
+              <button
+              className="ml-2 text-[#48578f] mb-2 text-left cursor-pointer">
+                My Activity Feeds
+              </button>
 
+              <div className="my-4 h-[2px] bg-gradient-to-r from-transparent via-[#bed7f7] to-transparent"></div>
+            </div>
+          </div>
         </div>
       </div>
     </div>
