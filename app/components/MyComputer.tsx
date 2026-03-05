@@ -79,6 +79,9 @@ export default function MyComputer({ onMinimize, onClose }: MyComputerProps) {
     };
   }, [dragging]);
 
+  const menuItems = ["File", "Edit", "View", "Favorites", "Tools", "Help"];
+  const toolbarItems = ["Back", "Forward", "Search", "Folders"];
+
   return (
     <div
       className="absolute"
@@ -94,7 +97,7 @@ export default function MyComputer({ onMinimize, onClose }: MyComputerProps) {
           select-none
         "
       >
-        <div className="w-full h-full bg-[#ECE9D8] rounded-[5px] overflow-hidden">
+        <div className="flex h-full w-full flex-col bg-[#ECE9D8] rounded-[5px] overflow-hidden">
 
           <div
             onMouseDown={handleMouseDown}
@@ -158,48 +161,67 @@ export default function MyComputer({ onMinimize, onClose }: MyComputerProps) {
               </button>
             </div>
           </div>
-          <div
-            className="
-              h-[26px]
-              bg-[#ECE9D8]
-              shadow-[inset_0_-1px_0_#FFFFFF,inset_0_-2px_0_#ACA899]
-              flex items-center
-              px-2
-              text-[13px]
-              text-black
-              gap-6
-              select-none
-            "
-          >
-            <button className="px-1 text-[#D4D0C8] hover:bg-[#316AC5] hover:text-white">File</button>
-            <button className="px-1 text-[#D4D0C8] hover:bg-[#316AC5] hover:text-white">Edit</button>
-            <button className="px-1 text-[#D4D0C8] hover:bg-[#316AC5] hover:text-white">View</button>
-            <button className="px-1 text-[#D4D0C8] hover:bg-[#316AC5] hover:text-white">Favorites</button>
-            <button className="px-1 text-[#D4D0C8] hover:bg-[#316AC5] hover:text-white">Tools</button>
-            <button className="px-1 text-[#D4D0C8] hover:bg-[#316AC5] hover:text-white">Help</button>
-
-            <div
-              className="
-                ml-auto
-                mr-[-7px]
-                mt-[-2]
-                h-[22px]
-                px-[6px]
-                bg-white
-                flex items-center justify-center
-              "
-            >
-              <Image
-                src="/images/windows-xp-logo.svg"
-                alt="Windows XP"
-                width={0}
-                height={0}
-                className="h-[16px] w-auto"
-              />
-            </div>
+          <div className="h-[26px] bg-[#ECE9D8] shadow-[inset_0_-1px_0_#FFFFFF,inset_0_-2px_0_#ACA899] flex items-center px-2 text-[13px] text-black gap-2 select-none">
+            {menuItems.map((item) => (
+              <button
+                key={item}
+                className="px-[8px] py-[1px] leading-none text-[#000000] hover:bg-[#316AC5] hover:text-white"
+              >
+                {item}
+              </button>
+            ))}
           </div>
 
-          <div className="p-4 text-black text-sm">
+          <div className="h-[36px] bg-[#ECE9D8] shadow-[inset_0_1px_0_#F9F7EE,inset_0_-1px_0_#ACA899] flex items-center px-[6px] gap-[4px]">
+            {toolbarItems.map((item, index) => (
+              <div key={item} className="flex items-center">
+                <button className="h-[26px] px-[8px] rounded-[2px] border border-transparent hover:border-[#8B8A7D] hover:bg-[linear-gradient(to_bottom,#fffdf5_0%,#f1ebd5_100%)] active:translate-y-px flex items-center gap-[5px] text-[13px] text-[#2d3a6c]">
+                  <Image
+                    src="/images/folders.png"
+                    alt={`${item} icon`}
+                    width={16}
+                    height={16}
+                    className="shrink-0"
+                  />
+                  <span>{item}</span>
+                </button>
+                {index === 1 && (
+                  <div className="mx-[6px] h-[22px] w-px bg-[#A7A694] shadow-[1px_0_0_#FFFFFF]" />
+                )}
+              </div>
+            ))}
+
+            <button className="ml-auto h-[24px] w-[23px] rounded-[2px] border border-[#8B8A7D] bg-[linear-gradient(to_bottom,#fffdf5_0%,#e8e2cc_100%)] text-[10px] leading-none text-[#2f4e99]">
+              ▼
+            </button>
+          </div>
+
+          <div className="h-[31px] bg-[#ECE9D8] shadow-[inset_0_1px_0_#FFFFFF,inset_0_-1px_0_#ACA899] flex items-center px-[6px] gap-[6px]">
+            <div className="h-[22px] min-w-[68px] px-[8px] text-[12px] text-[#5f5e57] bg-[#ECE9D8] border border-[#B9B7AB] shadow-[inset_1px_1px_0_#FFFFFF,inset_-1px_-1px_0_#DAD8CB] flex items-center">
+              Address
+            </div>
+
+            <div className="h-[22px] flex-1 bg-white border border-[#7F9DB9] shadow-[inset_0_1px_0_#D8E6F9] flex items-center">
+              <Image
+                src="/images/folders.png"
+                alt="Address icon"
+                width={16}
+                height={16}
+                className="ml-1 mr-1.5"
+              />
+              <span className="text-[13px] text-[#1b1b1b]">My Computer</span>
+
+              <button className="ml-auto h-full w-[20px] border-l border-[#A6A9B6] bg-[linear-gradient(to_bottom,#f9f9fb_0%,#dfe3ea_100%)] text-[10px] text-[#2f4e99] leading-none">
+                ▼
+              </button>
+            </div>
+
+            <button className="h-[24px] px-[9px] rounded-[2px] border border-[#8B8A7D] bg-[linear-gradient(to_bottom,#fffdf5_0%,#e7e1cb_100%)] text-[13px] text-[#2f4e99]">
+              Go
+            </button>
+          </div>
+
+          <div className="flex-1 p-4 text-black text-sm bg-white">
             Content
           </div>
 

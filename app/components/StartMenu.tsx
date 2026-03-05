@@ -78,6 +78,16 @@ export default function StartMenu() {
               </button>
 
               <div className="my-4 h-[2px] bg-gradient-to-r from-transparent via-[#bed7f7] to-transparent"></div>
+
+              <button
+              className="ml-2 text-[#48578f] mb-2 text-left cursor-pointer">
+                My Computer
+              </button>
+
+              <button
+              className="ml-2 text-[#48578f] mb-2 text-left cursor-pointer">
+                Paint
+              </button>
             </div>
           </div>
         </div>

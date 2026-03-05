@@ -3,9 +3,18 @@
 :root {
   --background: #ffffff;
   --foreground: #171717;
-  --cursor-default: url("/images/cursors/default_arrow.cur"), auto;
-  --cursor-link: url("/images/cursors/default_link.cur"), pointer;
-  --cursor-drag: url("/images/cursors/hmove.cur"), move;
+  --cursor-default:
+    url("/images/cursors/default_arrow.cur") 10 10,
+    url("/images/cursors/default_arrow.png") 10 10,
+    auto;
+  --cursor-link:
+    url("/images/cursors/default_link.cur") 10 10,
+    url("/images/cursors/default_link.png") 10 10,
+    pointer;
+  --cursor-drag:
+    url("/images/cursors/hmove.cur") 16 14,
+    url("/images/cursors/hmove.png") 16 14,
+    move;
 }
 
 @layer utilities {
