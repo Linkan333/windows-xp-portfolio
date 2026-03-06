@@ -6,7 +6,12 @@ import XPTitleBar from "./XPTitleBar";
 const WINDOW_WIDTH = 720;
 const WINDOW_HEIGHT = 480;
 
-export default function MyProjects() {
+interface MyProjectsProps {
+  zIndex: number;
+  onBringToFront: () => void;
+}
+
+export default function MyProjects({ zIndex, onBringToFront }: MyProjectsProps) {
   const menuItems = ["File", "Edit", "Format", "View", "Help"];
   const [position, setPosition] = useState<{ x: number; y: number } | null>(null);
   const [dragging, setDragging] = useState(false);
@@ -33,6 +38,8 @@ export default function MyProjects() {
       y: event.clientY - position.y,
     };
   };
+
+  
 
   useEffect(() => {
     if (!dragging) return;
@@ -66,14 +73,15 @@ export default function MyProjects() {
   }, [dragging]);
 
   const windowStyle = position
-    ? { left: position.x, top: position.y, width: WINDOW_WIDTH, height: WINDOW_HEIGHT }
-    : { width: WINDOW_WIDTH, height: WINDOW_HEIGHT };
+    ? { left: position.x, top: position.y, width: WINDOW_WIDTH, height: WINDOW_HEIGHT, zIndex }
+    : { width: WINDOW_WIDTH, height: WINDOW_HEIGHT, zIndex };
 
   return (
     <div
       ref={windowRef}
       className={`absolute ${position === null ? "left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2" : ""}`}
       style={windowStyle}
+      onMouseDown={onBringToFront}
     >
       <div
         className="
@@ -105,13 +113,13 @@ export default function MyProjects() {
             ))}
           </div>
 
-          <div className="flex-1 bg-white p-4 text-black overflow-auto">
-            <h2 className="mb-3 text-[14px] font-bold text-[#1e4093]">
+          <div className="flex-1 bg-white p-4 text-black overflow-auto [text-shadow:none] antialiased">
+            <h2 className="mb-3 border-b border-[#d4d0c2] pb-2 text-[15px] font-bold tracking-[0.01em] text-[#1e4093]">
               Projects & Links
             </h2>
 
-            <ul className="space-y-2 text-[12px] leading-[1.35]">
-              <li className="rounded-[3px] border border-[#c9c6b8] bg-[#fdfdfd] px-3 py-2">
+            <ul className="max-w-[66ch] space-y-2 text-[13px] leading-[1.55] tracking-[0.01em] text-[#212121]">
+              <li className="rounded-[3px] border border-[#c9c6b8] bg-[#fffef9] px-3 py-2">
                 <a
                   href="https://github.com/Linkan333/APIHawk"
                   target="_blank"
@@ -120,12 +128,12 @@ export default function MyProjects() {
                 >
                   APIHawk
                 </a>
-                <p className="mt-1 text-[#343434]">
+                <p className="mt-1 text-[#2f2f2f]">
                   Easy-to-use tool built for API endpoint fuzzing during reconnaissance.
                 </p>
               </li>
 
-              <li className="rounded-[3px] border border-[#c9c6b8] bg-[#fdfdfd] px-3 py-2">
+              <li className="rounded-[3px] border border-[#c9c6b8] bg-[#fffef9] px-3 py-2">
                 <a
                   href="https://github.com/Linkan333/SubHawk"
                   target="_blank"
@@ -134,12 +142,12 @@ export default function MyProjects() {
                 >
                   SubHawk
                 </a>
-                <p className="mt-1 text-[#343434]">
+                <p className="mt-1 text-[#2f2f2f]">
                   Companion tool focused on subdomain enumeration for recon workflows.
                 </p>
               </li>
 
-              <li className="rounded-[3px] border border-[#c9c6b8] bg-[#fdfdfd] px-3 py-2">
+              <li className="rounded-[3px] border border-[#c9c6b8] bg-[#fffef9] px-3 py-2">
                 <a
                   href="https://buzzwork.se"
                   target="_blank"
@@ -148,12 +156,12 @@ export default function MyProjects() {
                 >
                   Buzzwork
                 </a>
-                <p className="mt-1 text-[#343434]">
+                <p className="mt-1 text-[#2f2f2f]">
                   Company site that I designed and built.
                 </p>
               </li>
 
-              <li className="rounded-[3px] border border-[#c9c6b8] bg-[#fdfdfd] px-3 py-2">
+              <li className="rounded-[3px] border border-[#c9c6b8] bg-[#fffef9] px-3 py-2">
                 <a
                   href="https://dronarflex.se"
                   target="_blank"
@@ -162,12 +170,12 @@ export default function MyProjects() {
                 >
                   Dronarflex
                 </a>
-                <p className="mt-1 text-[#343434]">
+                <p className="mt-1 text-[#2f2f2f]">
                   Website project delivered for a client company.
                 </p>
               </li>
 
-              <li className="rounded-[3px] border border-[#c9c6b8] bg-[#fdfdfd] px-3 py-2">
+              <li className="rounded-[3px] border border-[#c9c6b8] bg-[#fffef9] px-3 py-2">
                 <a
                   href="https://github.com/Linkan333/ctf-solves"
                   target="_blank"
@@ -176,7 +184,7 @@ export default function MyProjects() {
                 >
                   CTF Solves
                 </a>
-                <p className="mt-1 text-[#343434]">
+                <p className="mt-1 text-[#2f2f2f]">
                   Writeups from CTF challenges and exploit practice notes.
                 </p>
               </li>

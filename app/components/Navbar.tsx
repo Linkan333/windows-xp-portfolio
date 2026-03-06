@@ -14,7 +14,7 @@ export default function Navbar({
 }: Navbarprops) {
     const [startOpen, setStartOpen] = useState(false);
     const [active, setActive] = useState<string | null>(null);
-    const time: Date = new Date()
+    const time: Date = new Date() 
     let h: string|number = new Date(time).getHours();
     let m: string|number = new Date(time).getMinutes();
 
@@ -28,16 +28,22 @@ export default function Navbar({
       {startOpen && <StartMenu />}
       <div
         className="
-          fixed bottom-9 left-17 w-[93vw] h-12
+          fixed bottom-11 left-17 w-[93vw] h-12
           bg-gradient-to-b
           from-[#3a6fd8]
           via-[#245edb]
           to-[#1941a5]
           border-t border-[#6ea0ff]
-          shadow-[inset_0_1px_0_rgba(255,255,255,0.6),inset_0_-2px_4px_rgba(0,0,0,0.4)]
           flex items-center
-        "
-      >
+          shadow-lg
+          [clip-path:ellipse(120%_100%_at_50%_100%)]"
+        >
+          <div
+            className="
+            fixed bottom-3 z-[-3] left-17 w-[93vw] h-12
+            bg-[#1652d9]
+            flex items-center"
+          ></div>
         <div className="relative h-full w-[172px] shrink-0">
           <button
             onClick={() => setStartOpen(!startOpen)}

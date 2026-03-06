@@ -4,7 +4,7 @@ import Image from "next/image";
 
 export default function StartMenu() {
   return (
-    <div className="fixed bottom-21 left-15 z-30">
+    <div className="fixed bottom-22 left-15 z-30">
       <div
         className="
           h-[620px] w-[480px]

@@ -6,6 +6,8 @@ import { useEffect, useRef, useState } from "react";
 interface MyComputerProps {
   onMinimize: () => void;
   onClose: () => void;
+  zIndex: number;
+  onBringToFront: () => void;
 }
 
 function ToolbarArrowIcon({ direction }: { direction: "left" | "right" }) {
@@ -31,7 +33,12 @@ function ToolbarArrowIcon({ direction }: { direction: "left" | "right" }) {
   );
 }
 
-export default function MyComputer({ onMinimize, onClose }: MyComputerProps) {
+export default function MyComputer({
+  onMinimize,
+  onClose,
+  zIndex,
+  onBringToFront,
+}: MyComputerProps) {
   const [position, setPosition] = useState({ x: 400, y: 200 });
   const [dragging, setDragging] = useState(false);
   const [maximized, setMaximized] = useState(false);
@@ -57,12 +64,14 @@ export default function MyComputer({ onMinimize, onClose }: MyComputerProps) {
         top: 8,
         width: "calc(100vw - 16px)",
         height: "calc(100vh - 88px)",
+        zIndex,
       }
     : {
         left: position.x,
         top: position.y,
         width: 720,
         height: 480,
+        zIndex,
       };
 
   const captionButtonClass =
@@ -111,6 +120,7 @@ export default function MyComputer({ onMinimize, onClose }: MyComputerProps) {
     <div
       className="absolute"
       style={windowStyle}
+      onMouseDown={onBringToFront}
     >
       <div
         className="
