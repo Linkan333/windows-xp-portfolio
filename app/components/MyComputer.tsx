@@ -1,11 +1,34 @@
 "use client";
 
-import { useState, useRef, useEffect } from "react";
 import Image from "next/image";
+import { useEffect, useRef, useState } from "react";
 
 interface MyComputerProps {
   onMinimize: () => void;
   onClose: () => void;
+}
+
+function ToolbarArrowIcon({ direction }: { direction: "left" | "right" }) {
+  return (
+    <svg
+      width="17"
+      height="17"
+      viewBox="0 0 17 17"
+      aria-hidden="true"
+      className="shrink-0"
+    >
+      <circle cx="8.5" cy="8.5" r="7.5" fill="#c6c6c6" stroke="#b2b1aa" />
+      <circle cx="8.5" cy="8.5" r="6.5" fill="#d7d7d7" />
+      <path
+        d={
+          direction === "left"
+            ? "M10.8 5.2L6.7 8.5L10.8 11.8V5.2Z"
+            : "M6.2 5.2L10.3 8.5L6.2 11.8V5.2Z"
+        }
+        fill="#ffffff"
+      />
+    </svg>
+  );
 }
 
 export default function MyComputer({ onMinimize, onClose }: MyComputerProps) {
@@ -38,7 +61,7 @@ export default function MyComputer({ onMinimize, onClose }: MyComputerProps) {
     : {
         left: position.x,
         top: position.y,
-        width: 560,
+        width: 720,
         height: 480,
       };
 
@@ -80,7 +103,9 @@ export default function MyComputer({ onMinimize, onClose }: MyComputerProps) {
   }, [dragging]);
 
   const menuItems = ["File", "Edit", "View", "Favorites", "Tools", "Help"];
-  const toolbarItems = ["Back", "Forward", "Search", "Folders"];
+  const toolbarItems = ["back", "forward", "search", "folders"] as const;
+  const sidebarLinkClass =
+    "ml-2 flex min-h-[20px] items-center gap-[5px] text-[10px] font-semibold leading-none text-[#81abe8]";
 
   return (
     <div
@@ -101,10 +126,9 @@ export default function MyComputer({ onMinimize, onClose }: MyComputerProps) {
 
           <div
             onMouseDown={handleMouseDown}
-            onDoubleClick={toggleMaximize}
             className="
-              h-[30px]
-              bg-[linear-gradient(to_bottom,#0f46b8_0%,#2f6de4_12%,#6ea6ff_22%,#3d7bea_45%,#255fd4_100%)]
+              h-[36px]
+              bg-[linear-gradient(to_bottom,#94b1e9_0%,#7a97df_17%,#7a96df_36%,#7c9ae2_50%,#82a9e9_75%,#81a6e8_83%,#c8d0e5_100%)]
               shadow-[inset_0_1px_0_rgba(255,255,255,0.82),inset_0_-1px_0_rgba(9,27,96,0.62)]
               flex items-center pl-[7px] pr-[6px]
               xp-draggable
@@ -134,19 +158,9 @@ export default function MyComputer({ onMinimize, onClose }: MyComputerProps) {
 
               <button
                 type="button"
-                onClick={toggleMaximize}
-                onMouseDown={(e) => e.stopPropagation()}
-                aria-label={maximized ? "Restore" : "Maximize"}
                 className={captionButtonClass}
               >
-                {maximized ? (
-                  <>
-                    <span className="absolute left-[6px] top-[5px] h-[7px] w-[8px] border-[2px] border-white border-b-0 shadow-[0_1px_0_rgba(0,0,0,0.3)]" />
-                    <span className="absolute left-[8px] top-[7px] h-[7px] w-[8px] border-[2px] border-white bg-transparent shadow-[0_1px_0_rgba(0,0,0,0.3)]" />
-                  </>
-                ) : (
                   <span className="h-[8px] w-[9px] border-[2px] border-white shadow-[0_1px_0_rgba(0,0,0,0.3)]" />
-                )}
               </button>
 
               <button
@@ -173,19 +187,41 @@ export default function MyComputer({ onMinimize, onClose }: MyComputerProps) {
           </div>
 
           <div className="h-[36px] bg-[#ECE9D8] shadow-[inset_0_1px_0_#F9F7EE,inset_0_-1px_0_#ACA899] flex items-center px-[6px] gap-[4px]">
-            {toolbarItems.map((item, index) => (
+            {toolbarItems.map((item) => (
               <div key={item} className="flex items-center">
-                <button className="h-[26px] px-[8px] rounded-[2px] border border-transparent hover:border-[#8B8A7D] hover:bg-[linear-gradient(to_bottom,#fffdf5_0%,#f1ebd5_100%)] active:translate-y-px flex items-center gap-[5px] text-[13px] text-[#2d3a6c]">
-                  <Image
-                    src="/images/folders.png"
-                    alt={`${item} icon`}
-                    width={16}
-                    height={16}
-                    className="shrink-0"
-                  />
-                  <span>{item}</span>
-                </button>
-                {index === 1 && (
+                {item === "back" && (
+                  <button
+                    aria-label="Back"
+                    className="h-[26px] rounded-[2px] border border-transparent px-[7px] text-[13px] font-semibold text-[#8d8d8d] hover:border-[#8B8A7D] hover:bg-[linear-gradient(to_bottom,#fffdf5_0%,#f1ebd5_100%)] active:translate-y-px flex items-center gap-[5px]"
+                  >
+                    <ToolbarArrowIcon direction="left" />
+                    <span>Back</span>
+                  </button>
+                )}
+
+                {item === "forward" && (
+                  <button
+                    aria-label="Forward"
+                    className="h-[26px] w-[26px] rounded-[2px] border border-transparent text-[13px] text-[#8d8d8d] hover:border-[#8B8A7D] hover:bg-[linear-gradient(to_bottom,#fffdf5_0%,#f1ebd5_100%)] active:translate-y-px flex items-center justify-center"
+                  >
+                    <ToolbarArrowIcon direction="right" />
+                  </button>
+                )}
+
+                {(item === "search" || item === "folders") && (
+                  <button className="h-[26px] px-[8px] rounded-[2px] border border-transparent hover:border-[#8B8A7D] hover:bg-[linear-gradient(to_bottom,#fffdf5_0%,#f1ebd5_100%)] active:translate-y-px flex items-center gap-[5px] text-[13px] text-[#2d3a6c]">
+                    <Image
+                      src={item === "search" ? "/images/Search.ico" : "/images/icons/37.ico"}
+                      alt={item === "search" ? "Search icon" : "Folders icon"}
+                      width={16}
+                      height={16}
+                      className="shrink-0"
+                    />
+                    <span>{item === "search" ? "Search" : "Folders"}</span>
+                  </button>
+                )}
+
+                {item === "forward" && (
                   <div className="mx-[6px] h-[22px] w-px bg-[#A7A694] shadow-[1px_0_0_#FFFFFF]" />
                 )}
               </div>
@@ -203,7 +239,7 @@ export default function MyComputer({ onMinimize, onClose }: MyComputerProps) {
 
             <div className="h-[22px] flex-1 bg-white border border-[#7F9DB9] shadow-[inset_0_1px_0_#D8E6F9] flex items-center">
               <Image
-                src="/images/folders.png"
+                src="/images/mycomputer.ico"
                 alt="Address icon"
                 width={16}
                 height={16}
@@ -216,13 +252,177 @@ export default function MyComputer({ onMinimize, onClose }: MyComputerProps) {
               </button>
             </div>
 
-            <button className="h-[24px] px-[9px] rounded-[2px] border border-[#8B8A7D] bg-[linear-gradient(to_bottom,#fffdf5_0%,#e7e1cb_100%)] text-[13px] text-[#2f4e99]">
-              Go
+            <button className="h-[24px] px-[6px] rounded-[2px] border border-[#8B8A7D] bg-[linear-gradient(to_bottom,#fffdf5_0%,#e7e1cb_100%)] text-[13px] text-[#2f4e99] flex items-center gap-[4px]">
+              <Image
+                src="/images/Green Arrow.ico"
+                alt="Go"
+                width={16}
+                height={16}
+                className="shrink-0"
+              />
+              <span className="leading-none">Go</span>
             </button>
           </div>
 
           <div className="flex-1 p-4 text-black text-sm bg-white">
-            Content
+            <div
+              className="
+              mt-[-16px]
+              ml-[-16px]
+              h-[750px]
+              w-1/3
+              bg-[linear-gradient(to_bottom,#a0b4d3_0%,#7aa0e6_6%,#789de4_18%,#7497e2_40%,#6f8fde_62%,#6a87db_82%,#657dd9_100%)]
+              flex flex-col
+              items-center"
+            >
+              <div className="
+              mt-5
+              h-[90px]
+              rounded-tr-[4px] rounded-tl-[4px]
+              w-[170px]
+              bg-[#d6dff7]
+              "
+              >
+                <div className="
+                w-full
+                h-[20px]
+                mb-[3px]
+                bg-[linear-gradient(to_right,#ffffff_50%,#c6d3f6_100%)]
+                rounded-tr-[4px] rounded-tl-[4px]">
+                  <h2
+                    className="text-[13px] text-[#779cdb] font-bold pl-2 pt-[2px]"
+                  >System Tasks</h2>
+                </div>
+                <button
+                  className={sidebarLinkClass}>
+                  <Image
+                    src="/images/System Info.ico"
+                    alt="System Properties icon"
+                    width={18}
+                    height={18}
+                    className="shrink-0"
+                  />
+                  <span>View system information</span>
+                </button>
+                <button
+                  className={sidebarLinkClass}>
+                  <Image
+                    src="/images/Add Remove.ico"
+                    alt="Disk Image File icon"
+                    width={18}
+                    height={18}
+                    className="shrink-0"
+                  />
+                  <span>Add or remove programs</span>
+                </button>
+                <button
+                  className={sidebarLinkClass}>
+                  <Image
+                    src="/images/Settings & Control.ico"
+                    alt="Change Setting icon"
+                    width={18}
+                    height={18}
+                    className="shrink-0"
+                  />
+                  <span>Change a setting</span>
+                </button>
+              </div>
+              <div>
+                <div className="
+                mt-5
+                h-[120px]
+                rounded-tr-[4px] rounded-tl-[4px]
+                w-[170px]
+                bg-[#d6dff7]
+                "
+                >
+                  <div className="
+                  w-full
+                  h-[20px]
+                  mb-[3px]
+                  bg-[linear-gradient(to_right,#ffffff_50%,#c6d3f6_100%)]
+                  rounded-tr-[4px] rounded-tl-[4px]
+                  ">
+                    <h2
+                      className="text-[13px] text-[#779cdb] font-bold pl-2 pt-[2px]"
+                    >Other Places</h2>
+                  </div>
+
+                  <button
+                    className={sidebarLinkClass}>
+                    <Image
+                      src="/images/My Network Places.ico"
+                      alt="My Network Places icon"
+                      width={18}
+                      height={18}
+                      className="shrink-0"
+                    />
+                    <span>My Network Places</span>
+                  </button>
+                  <button
+                    className={sidebarLinkClass}>
+                    <Image
+                      src="/images/My Documents.ico"
+                      alt="My Documents icon"
+                      width={18}
+                      height={18}
+                      className="shrink-0"
+                    />
+                    My Documents
+                  </button>
+                  <button
+                    className={sidebarLinkClass}>
+                    <Image
+                      src="/images/Shared Documents.ico"
+                      alt="Shared Documents icon"
+                      width={18}
+                      height={18}
+                      className="shrink-0"
+                    />
+                    Shared Documents
+                  </button>
+                  <button
+                    className={sidebarLinkClass}>
+                    <Image
+                      src="/images/Settings & Control.ico"
+                      alt="Control Panel icon"
+                      width={18}
+                      height={18}
+                      className="shrink-0"
+                    />
+                    Control Panel
+                  </button>
+                </div>
+
+                <div className="
+                mt-5
+                h-[70px]
+                rounded-tr-[4px] rounded-tl-[4px]
+                w-[170px]
+                bg-[#d6dff7]
+                ">
+                  <div className="
+                  w-full
+                  h-[20px]
+                  bg-[linear-gradient(to_right,#ffffff_50%,#c6d3f6_100%)]
+                  rounded-tr-[4px] rounded-tl-[4px]
+                  ">
+                    <h2
+                      className="text-[13px] text-[#779cdb] font-bold pl-2 pt-[2px]"
+                    >
+                      Details
+                    </h2>
+                  </div>
+                  <p className="text-[10px] font-semibold mt-2 ml-2 text-[#000]">
+                    My Computer
+                  </p>
+                  <p className="text-[10px] ml-2 text-[#000]">
+                    System Folder
+                  </p>
+                </div>
+              </div>
+              <div></div>
+            </div>
           </div>
 
         </div>
