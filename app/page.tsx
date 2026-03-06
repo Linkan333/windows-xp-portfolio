@@ -2,6 +2,7 @@
 
 import Image from "next/image";
 import { useRef, useState } from "react";
+import MineSweeper from "./components/Minesweeper";
 import MyAccomplishments from "./components/MyAccomplishments";
 import MyComputer from "./components/MyComputer";
 import MyProjects from "./components/MyProjects";
@@ -72,6 +73,12 @@ export default function Home() {
         zIndex={windowZOrder.myAccomplishments}
         onBringToFront={() => bringToFront("myAccomplishments")}
       />
+
+      <MineSweeper
+        zIndex={windowZOrder.myAccomplishments}
+        onBringToFront={() => bringToFront("myAccomplishments")}
+      />
+
 
 
       <Navbar
