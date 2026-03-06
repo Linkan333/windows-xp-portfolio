@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import localFont from "next/font/local";
+import CRTMonitor from "./components/CRTMonitor";
 import "./globals.css";
 
 const alfaSlabOne = localFont({
@@ -27,7 +28,7 @@ export default function RootLayout({
       <body suppressHydrationWarning
         className={`${alfaSlabOne.className} antialiased`}
       >
-        {children}
+        <CRTMonitor frameSrc="/images/crt-frame.png">{children}</CRTMonitor>
       </body>
     </html>
   );

@@ -28,7 +28,7 @@ export default function Navbar({
       {startOpen && <StartMenu />}
       <div
         className="
-          fixed bottom-0 left-0 w-full h-12
+          fixed bottom-9 left-17 w-[93vw] h-12
           bg-gradient-to-b
           from-[#3a6fd8]
           via-[#245edb]

@@ -179,7 +179,7 @@ export default function MyComputer({ onMinimize, onClose }: MyComputerProps) {
             {menuItems.map((item) => (
               <button
                 key={item}
-                className="px-[8px] py-[1px] leading-none text-[#000000] hover:bg-[#316AC5] hover:text-white"
+                className="px-[8px] py-[1px] leading-none text-[#cec8c0] hover:bg-[#316AC5] hover:text-white"
               >
                 {item}
               </button>
@@ -252,15 +252,8 @@ export default function MyComputer({ onMinimize, onClose }: MyComputerProps) {
               </button>
             </div>
 
-            <button className="h-[24px] px-[6px] rounded-[2px] border border-[#8B8A7D] bg-[linear-gradient(to_bottom,#fffdf5_0%,#e7e1cb_100%)] text-[13px] text-[#2f4e99] flex items-center gap-[4px]">
-              <Image
-                src="/images/Green Arrow.ico"
-                alt="Go"
-                width={16}
-                height={16}
-                className="shrink-0"
-              />
-              <span className="leading-none">Go</span>
+            <button className="h-[24px] px-[9px] rounded-[2px] border border-[#8B8A7D] bg-[linear-gradient(to_bottom,#fffdf5_0%,#e7e1cb_100%)] text-[13px] text-[#2f4e99]">
+              Go
             </button>
           </div>
 
@@ -288,10 +281,20 @@ export default function MyComputer({ onMinimize, onClose }: MyComputerProps) {
                 h-[20px]
                 mb-[3px]
                 bg-[linear-gradient(to_right,#ffffff_50%,#c6d3f6_100%)]
-                rounded-tr-[4px] rounded-tl-[4px]">
+                rounded-tr-[4px] rounded-tl-[4px]
+                flex items-center justify-between pl-2 pr-[3px]
+                ">
                   <h2
-                    className="text-[13px] text-[#779cdb] font-bold pl-2 pt-[2px]"
+                    className="text-[13px] text-[#779cdb] font-bold"
                   >System Tasks</h2>
+                  <Image
+                    src="/images/pulldown.webp"
+                    alt=""
+                    aria-hidden="true"
+                    width={16}
+                    height={16}
+                    className="h-[16px] w-[16px] shrink-0"
+                  />
                 </div>
                 <button
                   className={sidebarLinkClass}>
@@ -342,10 +345,19 @@ export default function MyComputer({ onMinimize, onClose }: MyComputerProps) {
                   mb-[3px]
                   bg-[linear-gradient(to_right,#ffffff_50%,#c6d3f6_100%)]
                   rounded-tr-[4px] rounded-tl-[4px]
+                  flex items-center justify-between pl-2 pr-[3px]
                   ">
                     <h2
-                      className="text-[13px] text-[#779cdb] font-bold pl-2 pt-[2px]"
+                      className="text-[13px] text-[#779cdb] font-bold"
                     >Other Places</h2>
+                    <Image
+                      src="/images/pulldown.webp"
+                      alt=""
+                      aria-hidden="true"
+                      width={16}
+                      height={16}
+                      className="h-[16px] w-[16px] shrink-0"
+                    />
                   </div>
 
                   <button
@@ -406,12 +418,21 @@ export default function MyComputer({ onMinimize, onClose }: MyComputerProps) {
                   h-[20px]
                   bg-[linear-gradient(to_right,#ffffff_50%,#c6d3f6_100%)]
                   rounded-tr-[4px] rounded-tl-[4px]
+                  flex items-center justify-between pl-2 pr-[3px]
                   ">
                     <h2
-                      className="text-[13px] text-[#779cdb] font-bold pl-2 pt-[2px]"
+                      className="text-[13px] text-[#779cdb] font-bold"
                     >
                       Details
                     </h2>
+                    <Image
+                      src="/images/pulldown.webp"
+                      alt=""
+                      aria-hidden="true"
+                      width={16}
+                      height={16}
+                      className="h-[16px] w-[16px] shrink-0"
+                    />
                   </div>
                   <p className="text-[10px] font-semibold mt-2 ml-2 text-[#000]">
                     My Computer

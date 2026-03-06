@@ -1,9 +1,11 @@
 "use client";
 
-import { useState } from "react";
-import Navbar from "./components/Navbar";
-import MyComputer from "./components/MyComputer";
 import Image from "next/image";
+import { useState } from "react";
+import MyAccomplishments from "./components/MyAccomplishments";
+import MyComputer from "./components/MyComputer";
+import MyProjects from "./components/MyProjects";
+import Navbar from "./components/Navbar";
 
 export default function Home() {
   const [myComputerState, setMyComputerState] = useState<
@@ -43,12 +45,14 @@ export default function Home() {
         />
       )}
 
+      <MyProjects />
+      <MyAccomplishments />
+
 
       <Navbar
         myComputerState={myComputerState}
         toggleMyComputer={toggleMyComputer}
       />
-
     </div>
   );
 }

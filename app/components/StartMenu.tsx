@@ -4,7 +4,7 @@ import Image from "next/image";
 
 export default function StartMenu() {
   return (
-    <div className="fixed bottom-12 left-0 z-30">
+    <div className="fixed bottom-21 left-15 z-30">
       <div
         className="
           h-[620px] w-[480px]
@@ -61,32 +61,85 @@ export default function StartMenu() {
             border-[#c1daf7]
             flex flex-col">
               <button
-              className="ml-2 text-[#48578f] mb-2 text-left cursor-pointer">
+                className="ml-2 text-[#48578f] mb-2 text-left cursor-pointer">
+                <Image
+                  src="/images/icons/1472.ico"
+                  alt="My Projects"
+                  width={24}
+                  height={24}
+                  className="inline-block mr-2"
+                />
                 My Projects
               </button>
               <button
-              className="ml-2 text-[#48578f] mb-2 text-left cursor-pointer">
+                className="ml-2 text-[#48578f] mb-2 text-left cursor-pointer">
+                <Image
+                  src="/images/icons/312.ico"
+                  alt="My Projects"
+                  width={24}
+                  height={24}
+                  className="inline-block mr-2"
+                />
                 My Journey
               </button>
               <button
-              className="ml-2 text-[#48578f] mb-2 text-left cursor-pointer">
+                className="ml-2 text-[#48578f] mb-2 text-left cursor-pointer">
+                <Image
+                  src="/images/icons/1111.ico"
+                  alt="My Projects"
+                  width={24}
+                  height={24}
+                  className="inline-block mr-2"
+                />
                 My Socials
               </button>
               <button
-              className="ml-2 text-[#48578f] mb-2 text-left cursor-pointer">
+                className="ml-2 text-[#48578f] mb-2 text-left cursor-pointer">
+                <Image
+                  src="/images/icons/46.ico"
+                  alt="My Projects"
+                  width={24}
+                  height={24}
+                  className="inline-block mr-2"
+                />
                 My Activity Feeds
               </button>
 
               <div className="my-4 h-[2px] bg-gradient-to-r from-transparent via-[#bed7f7] to-transparent"></div>
 
               <button
-              className="ml-2 text-[#48578f] mb-2 text-left cursor-pointer">
+                className="ml-2 text-[#48578f] mb-2 text-left cursor-pointer">
+                <Image
+                  src="/images/mycomputer.ico"
+                  alt="My Projects"
+                  width={24}
+                  height={24}
+                  className="inline-block mr-2"
+                />
                 My Computer
               </button>
 
               <button
-              className="ml-2 text-[#48578f] mb-2 text-left cursor-pointer">
+                className="ml-2 text-[#48578f] mb-2 text-left cursor-pointer">
+                <Image
+                  src="/images/icons/1018.ico"
+                  alt="My Projects"
+                  width={24}
+                  height={24}
+                  className="inline-block mr-2"
+                />
                 Paint
+              </button>
+              <button
+                className="ml-2 text-[#48578f] mb-2 text-left cursor-pointer">
+                <Image
+                  src="/images/icons/322.ico"
+                  alt="My Projects"
+                  width={24}
+                  height={24}
+                  className="inline-block mr-2"
+                />
+                My Accomplishments
               </button>
             </div>
           </div>
