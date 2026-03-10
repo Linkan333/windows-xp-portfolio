@@ -8,6 +8,8 @@ interface XPTitleBarProps {
   onMouseDown?: (event: MouseEvent<HTMLDivElement>) => void;
   iconSrc?: string;
   iconAlt?: string;
+  onMinimize?: () => void;
+  onClose?: () => void;
 }
 
 export default function XPTitleBar({
@@ -15,6 +17,8 @@ export default function XPTitleBar({
   onMouseDown,
   iconSrc = "/images/mycomputer.ico",
   iconAlt = "window icon",
+  onMinimize,
+  onClose,
 }: XPTitleBarProps) {
   const captionButtonClass =
     "relative flex h-[21px] w-[21px] items-center justify-center rounded-[3px] border border-[#163b97] bg-[linear-gradient(to_bottom,#7ea7ff_0%,#5b8ff6_45%,#3f6ddd_100%)] shadow-[inset_0_1px_0_rgba(255,255,255,0.78),0_1px_0_rgba(0,0,0,0.28)] active:translate-y-px active:shadow-[inset_0_2px_3px_rgba(0,0,0,0.25)]";
@@ -46,13 +50,18 @@ export default function XPTitleBar({
 
       <div className="ml-auto flex items-center gap-[2px]">
         <button
+          type="button"
+          aria-label="Minimize"
           className={captionButtonClass}
+          onClick={onMinimize}
           onMouseDown={(event) => event.stopPropagation()}
         >
           <span className="mt-[7px] h-[2px] w-[8px] bg-white shadow-[0_1px_0_rgba(0,0,0,0.35)]" />
         </button>
 
         <button
+          type="button"
+          aria-label="Maximize"
           className={captionButtonClass}
           onMouseDown={(event) => event.stopPropagation()}
         >
@@ -60,7 +69,10 @@ export default function XPTitleBar({
         </button>
 
         <button
+          type="button"
+          aria-label="Close"
           className={closeButtonClass}
+          onClick={onClose}
           onMouseDown={(event) => event.stopPropagation()}
         >
           <span className="absolute h-[10px] w-[2px] rotate-45 bg-white shadow-[0_1px_0_rgba(0,0,0,0.3)]" />

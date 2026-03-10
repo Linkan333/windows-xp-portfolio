@@ -9,11 +9,15 @@ const WINDOW_HEIGHT = 480;
 interface MyAccomplishmentsProps {
   zIndex: number;
   onBringToFront: () => void;
+  onMinimize: () => void;
+  onClose: () => void;
 }
 
 export default function MyAccomplishments({
   zIndex,
   onBringToFront,
+  onMinimize,
+  onClose,
 }: MyAccomplishmentsProps) {
   const menuItems = ["File", "Edit", "Format", "View", "Help"];
   const [position, setPosition] = useState<{ x: number; y: number } | null>(null);
@@ -96,6 +100,8 @@ export default function MyAccomplishments({
             onMouseDown={handleTitleMouseDown}
             iconSrc="/images/icons/509.ico"
             iconAlt="My Accomplishments icon"
+            onMinimize={onMinimize}
+            onClose={onClose}
           />
           <div className="h-[26px] bg-[#ECE9D8] text-[#000] shadow-[inset_0_-1px_0_#FFFFFF,inset_0_-2px_0_#ACA899] flex items-center px-2 text-[13px] gap-2">
             {menuItems.map((item) => (

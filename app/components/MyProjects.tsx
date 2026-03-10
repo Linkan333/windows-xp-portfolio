@@ -9,9 +9,16 @@ const WINDOW_HEIGHT = 480;
 interface MyProjectsProps {
   zIndex: number;
   onBringToFront: () => void;
+  onMinimize: () => void;
+  onClose: () => void;
 }
 
-export default function MyProjects({ zIndex, onBringToFront }: MyProjectsProps) {
+export default function MyProjects({
+  zIndex,
+  onBringToFront,
+  onMinimize,
+  onClose,
+}: MyProjectsProps) {
   const menuItems = ["File", "Edit", "Format", "View", "Help"];
   const [position, setPosition] = useState<{ x: number; y: number } | null>(null);
   const [dragging, setDragging] = useState(false);
@@ -100,6 +107,8 @@ export default function MyProjects({ zIndex, onBringToFront }: MyProjectsProps) 
             onMouseDown={handleTitleMouseDown}
             iconSrc="/images/icons/509.ico"
             iconAlt="My Projects icon"
+            onMinimize={onMinimize}
+            onClose={onClose}
           />
 
           <div className="h-[26px] bg-[#ECE9D8] text-[#000] shadow-[inset_0_-1px_0_#FFFFFF,inset_0_-2px_0_#ACA899] flex items-center px-2 text-[13px] gap-2">

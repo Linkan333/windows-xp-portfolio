@@ -4,24 +4,37 @@ import Image from "next/image";
 import { useRef, useState } from "react";
 import MineSweeper from "./components/Minesweeper";
 import MyAccomplishments from "./components/MyAccomplishments";
+import MyActivityFeeds from "./components/MyActivityFeeds";
 import MyComputer from "./components/MyComputer";
+import MyJourney from "./components/MyJourney";
 import MyProjects from "./components/MyProjects";
+import MySocials from "./components/MySocials";
 import Navbar from "./components/Navbar";
-
-type WindowKey = "myComputer" | "myProjects" | "myAccomplishments";
+import type { TaskbarWindow, WindowState } from "./components/windowTypes";
 
 export default function Home() {
-  const [myComputerState, setMyComputerState] = useState<
-    "closed" | "open" | "minimized"
-  >("closed");
-  const zCounterRef = useRef(30);
-  const [windowZOrder, setWindowZOrder] = useState<Record<WindowKey, number>>({
-    myComputer: 10,
-    myProjects: 20,
-    myAccomplishments: 30,
+  const [windowState, setWindowState] = useState<Record<TaskbarWindow, WindowState>>({
+    myComputer: "closed",
+    myProjects: "open",
+    myJourney: "closed",
+    mySocials: "closed",
+    myActivityFeeds: "closed",
+    myAccomplishments: "open",
+    minesweeper: "open",
   });
 
-  const bringToFront = (windowKey: WindowKey) => {
+  const zCounterRef = useRef(70);
+  const [windowZOrder, setWindowZOrder] = useState<Record<TaskbarWindow, number>>({
+    myComputer: 10,
+    myProjects: 20,
+    myJourney: 30,
+    mySocials: 40,
+    myActivityFeeds: 50,
+    myAccomplishments: 60,
+    minesweeper: 70,
+  });
+
+  const bringToFront = (windowKey: TaskbarWindow) => {
     zCounterRef.current += 1;
     setWindowZOrder((previous) => ({
       ...previous,
@@ -29,25 +42,42 @@ export default function Home() {
     }));
   };
 
-  const toggleMyComputer = () => {
-    setMyComputerState((prev) => {
-      if (prev === "open") return "minimized";
-      bringToFront("myComputer");
-      return "open";
-    });
+  const openWindow = (windowKey: TaskbarWindow) => {
+    bringToFront(windowKey);
+    setWindowState((previous) => ({
+      ...previous,
+      [windowKey]: "open",
+    }));
   };
 
-  const minimizeMyComputer = () => {
-    setMyComputerState("minimized");
+  const toggleWindow = (windowKey: TaskbarWindow) => {
+    const currentState = windowState[windowKey];
+    if (currentState !== "open") {
+      bringToFront(windowKey);
+    }
+
+    setWindowState((previous) => ({
+      ...previous,
+      [windowKey]: previous[windowKey] === "open" ? "minimized" : "open",
+    }));
   };
 
-  const closeMyComputer = () => {
-    setMyComputerState("closed");
+  const minimizeWindow = (windowKey: TaskbarWindow) => {
+    setWindowState((previous) => ({
+      ...previous,
+      [windowKey]: "minimized",
+    }));
+  };
+
+  const closeWindow = (windowKey: TaskbarWindow) => {
+    setWindowState((previous) => ({
+      ...previous,
+      [windowKey]: "closed",
+    }));
   };
 
   return (
-    <div className="relative w-screen h-screen overflow-hidden">
-
+    <div className="relative h-full w-full overflow-hidden">
       <Image
         src="/images/bliss.jpg"
         alt="Windows XP Background"
@@ -56,35 +86,70 @@ export default function Home() {
         className="object-cover -z-10"
       />
 
-      {myComputerState === "open" && (
+      {windowState.myComputer === "open" && (
         <MyComputer
-          onMinimize={minimizeMyComputer}
-          onClose={closeMyComputer}
+          onMinimize={() => minimizeWindow("myComputer")}
+          onClose={() => closeWindow("myComputer")}
           zIndex={windowZOrder.myComputer}
           onBringToFront={() => bringToFront("myComputer")}
         />
       )}
 
-      <MyProjects
-        zIndex={windowZOrder.myProjects}
-        onBringToFront={() => bringToFront("myProjects")}
-      />
-      <MyAccomplishments
-        zIndex={windowZOrder.myAccomplishments}
-        onBringToFront={() => bringToFront("myAccomplishments")}
-      />
+      {windowState.myProjects === "open" && (
+        <MyProjects
+          zIndex={windowZOrder.myProjects}
+          onBringToFront={() => bringToFront("myProjects")}
+          onMinimize={() => minimizeWindow("myProjects")}
+          onClose={() => closeWindow("myProjects")}
+        />
+      )}
 
-      <MineSweeper
-        zIndex={windowZOrder.myAccomplishments}
-        onBringToFront={() => bringToFront("myAccomplishments")}
-      />
+      {windowState.myJourney === "open" && (
+        <MyJourney
+          zIndex={windowZOrder.myJourney}
+          onBringToFront={() => bringToFront("myJourney")}
+          onMinimize={() => minimizeWindow("myJourney")}
+          onClose={() => closeWindow("myJourney")}
+        />
+      )}
 
+      {windowState.mySocials === "open" && (
+        <MySocials
+          zIndex={windowZOrder.mySocials}
+          onBringToFront={() => bringToFront("mySocials")}
+          onMinimize={() => minimizeWindow("mySocials")}
+          onClose={() => closeWindow("mySocials")}
+        />
+      )}
 
+      {windowState.myActivityFeeds === "open" && (
+        <MyActivityFeeds
+          zIndex={windowZOrder.myActivityFeeds}
+          onBringToFront={() => bringToFront("myActivityFeeds")}
+          onMinimize={() => minimizeWindow("myActivityFeeds")}
+          onClose={() => closeWindow("myActivityFeeds")}
+        />
+      )}
 
-      <Navbar
-        myComputerState={myComputerState}
-        toggleMyComputer={toggleMyComputer}
-      />
+      {windowState.myAccomplishments === "open" && (
+        <MyAccomplishments
+          zIndex={windowZOrder.myAccomplishments}
+          onBringToFront={() => bringToFront("myAccomplishments")}
+          onMinimize={() => minimizeWindow("myAccomplishments")}
+          onClose={() => closeWindow("myAccomplishments")}
+        />
+      )}
+
+      {windowState.minesweeper === "open" && (
+        <MineSweeper
+          zIndex={windowZOrder.minesweeper}
+          onBringToFront={() => bringToFront("minesweeper")}
+          onMinimize={() => minimizeWindow("minesweeper")}
+          onClose={() => closeWindow("minesweeper")}
+        />
+      )}
+
+      <Navbar windows={windowState} toggleWindow={toggleWindow} openWindow={openWindow} />
     </div>
   );
 }
